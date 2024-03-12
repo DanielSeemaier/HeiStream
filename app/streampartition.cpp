@@ -16,6 +16,8 @@
 #include <fstream>
 #include <sstream>
 
+#include <sys/resource.h>
+
 #include "balance_configuration.h"
 #include "data_structure/graph_access.h"
 #include "graph_io_stream.h"
@@ -32,6 +34,15 @@
 #define MIN(A,B) ((A)<(B))?(A):(B)
 #define MAX(A,B) ((A)>(B))?(A):(B)
 
+inline long get_max_rss() {
+    rusage usage;
+    if (getrusage(RUSAGE_SELF, &usage) == 0) {
+        return usage.ru_maxrss;
+    }
+
+    std::cerr << "Error getting resource usage information." << std::endl;
+    return -1;
+}
 
 void config_multibfs_initial_partitioning(PartitionConfig & partition_config);
 
@@ -148,6 +159,7 @@ int main(int argn, char **argv) {
         std::cout << "cut \t\t"         << total_edge_cut                        << std::endl;
         std::cout << "finalobjective  " << total_edge_cut			 << std::endl;
         std::cout << "balance \t"  << qm.balance_full_stream(*partition_config.stream_blocks_weight) << std::endl;
+        std::cout << "MaxRSS \t\t" << get_max_rss() << std::endl;
 
         // write the partition to the disc 
         std::stringstream filename;
