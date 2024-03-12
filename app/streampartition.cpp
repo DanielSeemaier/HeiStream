@@ -170,7 +170,7 @@ int main(int argn, char **argv) {
         }
 
         if (!partition_config.suppress_output) {
-                graph_io_stream::writePartitionStream(partition_config, filename.str());
+                //graph_io_stream::writePartitionStream(partition_config, filename.str());
         } else {
                 std::cout << "No partition will be written as output." << std::endl;
         }
