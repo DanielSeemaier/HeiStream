@@ -197,7 +197,6 @@ void graph_io_stream::insertQuotientNodesInBatch(PartitionConfig & config, std::
 /* } */
 EdgeID graph_io_stream::insertQuotientEdgesInBatch(PartitionConfig & config, std::vector<std::vector<std::pair<NodeID,EdgeWeight>>>& all_edges, NodeID uncontracted_ghost_nodes) {
 	EdgeID inserted_edges = 0;
-	EdgeWeight edge_weight;
 	for (PartitionID block=0; block < config.k; block++) { 
 		NodeID target = config.nmbNodes + uncontracted_ghost_nodes + block;
 		if ((*config.edge_block_nodes)[block].size() < 1) continue; // if block has no neighbors in batch, continue outer for loop
@@ -717,7 +716,7 @@ void graph_io_stream::streamEvaluatePartition(PartitionConfig & config, const st
 	std::ifstream in(filename.c_str());
 	if (!in) {
 		std::cerr << "Error opening " << filename << std::endl;
-		return 1;
+		return;
 	}
 	long nmbNodes;
 	long nmbEdges;
@@ -740,8 +739,8 @@ void graph_io_stream::streamEvaluatePartition(PartitionConfig & config, const st
 		read_nw = true;
 	}
 	NodeID target;
-	NodeWeight total_nodeweight = 0;
-	EdgeWeight total_edgeweight = 0;
+	[[maybe_unused]] NodeWeight total_nodeweight = 0;
+	[[maybe_unused]] EdgeWeight total_edgeweight = 0;
 	edgeCut = 0;
 
 	while(  std::getline(in, (*lines)[0])) {

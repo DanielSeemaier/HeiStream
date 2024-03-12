@@ -95,7 +95,7 @@ EdgeWeight label_propagation_refinement::perform_refinement_fennel(PartitionConf
 	}
 
         for( int j = 0; j < partition_config.label_iterations_refinement; j++) {
-                unsigned int change_counter = 0;
+                [[maybe_unused]] unsigned int change_counter = 0;
                 while( !Q->empty() ) {
                         NodeID node = Q->front();
                         Q->pop();

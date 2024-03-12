@@ -38,6 +38,8 @@ void initial_partitioning::perform_initial_partitioning(PartitionConfig & config
                 case INITIAL_PARTITIONING_FENNEL:
                         partition = new init_fennel();
                         break;
+                default:
+                        __builtin_unreachable();
         }       
 
         quality_metrics qm;

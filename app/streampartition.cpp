@@ -42,7 +42,7 @@ int main(int argn, char **argv) {
         timer t, processing_t, io_t;
 	EdgeWeight total_edge_cut = 0;
         double global_mapping_time = 0;
-	double buffer_mapping_time = 0;
+	[[maybe_unused]] double buffer_mapping_time = 0;
 	double buffer_io_time = 0;
         quality_metrics qm;
 	balance_configuration bc;

@@ -155,7 +155,7 @@ void size_constraint_label_propagation::label_propagation(const PartitionConfig 
 	n_ordering.order_nodes(partition_config, G, permutation);
 
         for( int j = 0; j < partition_config.label_iterations; j++) {
-                unsigned int change_counter = 0;
+                [[maybe_unused]] unsigned int change_counter = 0;
 		for (NodeID node: permutation) {
                         //now move the node to the cluster that is most common in the neighborhood
                         forall_out_edges(G, e, node) {
